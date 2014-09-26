@@ -1,0 +1,11 @@
+div -> id = majorTask.name
+	button delete
+	title
+	button insert
+	list of tasks
+		div -> id = task.name
+			button delete
+			title
+			description
+	
+	
