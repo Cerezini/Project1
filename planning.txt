@@ -1,11 +1,16 @@
-div -> id = majorTask.name
-	button delete
-	title
-	button insert
-	list of tasks
-		div -> id = task.name
-			button delete
-			title
+*delimit box/container of each list
+	- maybe stablish a table
+*allow list grow in the horizontal
+
+*input of data
+
+pool class = row
+	div majorTask col-md-3
+		task title
+		div buttons row 
+		div subtask
+			div row bar
+				title
+				buttons
 			description
-	
-	
+		div subtask

@@ -1,19 +1,3 @@
-/*
-document.getElementById('test-p').addEventListener('click', function (e) {
-	console.log('p tratado', e.currentTarget);
-}, false);
-
-document.getElementById('test-strong').addEventListener('click', function (e) {
-	console.log('strong tratado', e.currentTarget);
-	
-	e.stopPropagation();
-}, false);
-
-document.getElementById('test-a').addEventListener('click', function (e) {
-	console.log('a tratado', e.currentTarget);
-}, false); */
-
-
 var Tasks = {
 	bindEvents: function () {
 		
@@ -27,17 +11,28 @@ var Tasks = {
 		var title = prompt('Title');
 		
 		var div = document.createElement('div');
-		div.setAttribute('id',title);
+		div.setAttribute('id','majorTask');
+		div.setAttribute('class',"col-md-3");
 		
 		var insertButton = document.createElement("button");
-		insertButton.appendChild(document.createTextNode("Insert task"));
+		insertButton.appendChild(document.createTextNode("Insert New"));
 		insertButton.addEventListener('click', Tasks._handlerAddTaskButton);
+		
+		var deleteButton = document.createElement("button");
+		deleteButton.appendChild(document.createTextNode("Delete"));
+		deleteButton.addEventListener('click', Tasks._handlerDeleteTaskButton);
+		
+		var completedButton = document.createElement("button");
+		completedButton.appendChild(document.createTextNode("Done"));
+		completedButton.addEventListener('click', Tasks._handlerCompletedTaskButton);
 	
 		var h2 = document.createElement('h2');
 		h2.appendChild(document.createTextNode(title));
 		
 		div.appendChild(h2);
 		div.appendChild(insertButton);
+		div.appendChild(deleteButton);
+		div.appendChild(completedButton);
 		var pool = document.getElementById('pool');
 		pool.appendChild(div);
 	},
@@ -48,12 +43,15 @@ var Tasks = {
 		var description = prompt('Description:');
 		
 		var div = document.createElement('div');
-		div.setAttribute('id',title);
+		div.setAttribute('id','subtask');
 		
-		//delete button
-		//var insertButton = document.createElement("button");
-		//insertButton.appendChild(document.createTextNode("Insert task"));
-		//button.addEventListener('click', Tasks._handlerAddTaskButton);
+		var deleteButton = document.createElement("button");
+		deleteButton.appendChild(document.createTextNode("Delete"));
+		deleteButton.addEventListener('click', Tasks._handlerDeleteTaskButton);
+		
+		var completedButton = document.createElement("button");
+		completedButton.appendChild(document.createTextNode("Done"));
+		completedButton.addEventListener('click', Tasks._handlerCompletedTaskButton);
 	
 		var h3 = document.createElement('h3');
 		h3.appendChild(document.createTextNode(title));
@@ -61,22 +59,26 @@ var Tasks = {
 		p.appendChild(document.createTextNode(description));
 		
 		div.appendChild(h3);
+		div.appendChild(deleteButton);
+		div.appendChild(completedButton);
 		div.appendChild(p);
-		//div.appendChild(insertButton);
 		var currentDiv = e.currentTarget.parentNode;
 		currentDiv.appendChild(div);
+	},
+	
+	_handlerDeleteTaskButton: function(e) {
+	
+		var currentDiv = e.currentTarget.parentNode;
+		var parentDiv = currentDiv.parentNode;
+		parentDiv.removeChild(currentDiv);
+	},
+	
+	_handlerCompletedTaskButton: function(e) {
+		
+		var currentDiv = e.currentTarget.parentNode;
+		var title = currentDiv.firstChild;
+		title.innerHTML = '<s>' + title.innerHTML + '</s>';
 	}
 };
-/*
-var MajorTask = {
-	title: 'taskTitle',
-	tasksList: [],
-};
 
-var Task = {
-	title: 'taskTitle',
-	id: 'id',
-	description: 'text',
-};
-*/
 window.addEventListener('load', Tasks.bindEvents);
