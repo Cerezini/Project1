@@ -1,8 +1,10 @@
-*delimit box/container of each list
-	- maybe stablish a table
 *allow list grow in the horizontal
 
-*input of data
+*delete button X
+
+*done button
+
+*not allow empty text for tasks titles
 
 pool class = row
 	div majorTask col-md-3
