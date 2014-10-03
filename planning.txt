@@ -1,18 +1,1 @@
-*allow list grow in the horizontal
 
-*delete button X
-
-*done button
-
-*not allow empty text for tasks titles
-
-pool class = row
-	div majorTask col-md-3
-		task title
-		div buttons row 
-		div subtask
-			div row bar
-				title
-				buttons
-			description
-		div subtask

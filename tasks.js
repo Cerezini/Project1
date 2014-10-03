@@ -5,21 +5,22 @@ var Tasks = {
 		//.getElementById('insert-task-button')
 		//.addEventListener('click', Tasks._handlerAddMajorTaskButton);
 	
-	document.getElementById('input').addEventListener('keypress',Tasks._inputMajorTaskHandler);
+	document.getElementById('input').addEventListener('keyup',Tasks._inputMajorTaskHandler);
 	},
 	
 	_inputMajorTaskHandler: function(e){
 		//console.log(e.keyCode);
-		if(e.keyCode === 13){
+		if(e.keyCode === 13 && e.currentTarget.value != ""){
 			Tasks._AddMajorTask(e);
 		} else if(e.keyCode === 27){
-			e.currentTarget.value = "";	
+			
+			e.target.value = "";	
 		}
 	},
 	
 	_inputTaskHandler: function(e){
 		//console.log(e.keyCode);
-		if(e.keyCode === 13){
+		if(e.keyCode === 13 && e.currentTarget.value != ""){
 			Tasks._AddTask(e);
 		} else if(e.keyCode === 27){
 			//
@@ -62,16 +63,16 @@ var Tasks = {
 		//buttons
 		var insertButton = document.createElement("button");
 		insertButton.appendChild(document.createTextNode("New"));
-		insertButton.setAttribute('class',"btn btn-xm btn-info");
+		insertButton.setAttribute('class',"btn btn-xs btn-info");
 		insertButton.addEventListener('click', Tasks._handlerNewTaskButton);
 		
-		var completedButton = document.createElement("button");
-		completedButton.appendChild(document.createTextNode("Done"));
-		completedButton.setAttribute('class',"btn btn-xm btn-success");
+		//var completedButton = document.createElement("button");
+		//completedButton.appendChild(document.createTextNode("Done"));
+		//completedButton.setAttribute('class',"btn btn-xm btn-success");
 		
 		var deleteButton = document.createElement("button");
 		deleteButton.appendChild(document.createTextNode("Del"));
-		deleteButton.setAttribute('class',"btn btn-xm btn-danger");
+		deleteButton.setAttribute('class',"btn btn-xs btn-danger");
 		deleteButton.addEventListener('click', Tasks._handlerDeleteTaskButton);
 		
 		var taskPool = document.createElement("div");
@@ -79,7 +80,7 @@ var Tasks = {
 		taskPool.setAttribute('class',"row");
 		
 		panelBody.appendChild(insertButton);
-		panelBody.appendChild(completedButton);
+		//panelBody.appendChild(completedButton);
 		panelBody.appendChild(deleteButton);
 		panelBody.appendChild(taskPool);
 		
@@ -179,6 +180,19 @@ var Tasks = {
 		h2.appendChild(document.createTextNode(title));
 		h2.setAttribute('class',"panel-title");
 		
+		//buttons
+		var completedButton = document.createElement("button");
+		completedButton.appendChild(document.createTextNode("V"));
+		completedButton.setAttribute('class',"btn btn-xs btn-success");
+		completedButton.addEventListener('click', Tasks._handlerCompletedTaskButton);
+		
+		var deleteButton = document.createElement("button");
+		deleteButton.appendChild(document.createTextNode("X"));
+		deleteButton.setAttribute('class',"btn btn-xs btn-danger");
+		deleteButton.addEventListener('click', Tasks._handlerDeleteTaskButton);
+		
+		panelHead.appendChild(completedButton);
+		panelHead.appendChild(deleteButton);
 		panelHead.appendChild(h2);
 		panelDiv.appendChild(panelHead);
 		
@@ -228,8 +242,6 @@ var Tasks = {
 		panelBody.insertBefore(inputTask, panelBody.lastChild);
 	},
 	
-	
-	
 	_handlerDeleteTaskButton: function(e) {
 	
 		var currentDiv = e.currentTarget.parentNode.parentNode.parentNode;
@@ -239,8 +251,10 @@ var Tasks = {
 	
 	_handlerCompletedTaskButton: function(e) {
 		
-		var currentDiv = e.currentTarget.parentNode;
-		var title = currentDiv.firstChild;
+		var panelDiv = e.currentTarget.parentNode.parentNode;
+		panelDiv.setAttribute('class',"panel panel-success");
+		
+		var title = e.currentTarget.parentNode.lastChild;
 		title.innerHTML = '<s>' + title.innerHTML + '</s>';
 	}
 };
